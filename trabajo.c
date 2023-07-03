@@ -2,10 +2,10 @@
 #include <locale.h>
 #include <wchar.h>
 
-void guardarDatos(const char* nombreArchivo, const char* contenido) {
+void guardarDatos(const char* nombreArchivo, const wchar_t* contenido) {
     FILE* archivo = fopen(nombreArchivo, "w+");
     if (archivo != NULL) {
-        fprintf(archivo, "%s", contenido);
+        fwprintf(archivo, L"%ls", contenido);
         fclose(archivo);
     } else {
         wprintf(L"No se pudo abrir el archivo para escritura.\n");
@@ -105,7 +105,7 @@ void opcion2(int matriz2021[7][2]) {
     int mayor = 0;
     int fila = 0;
 
-    char carreras[7][25] = {
+    const char carreras[7][25] = {
         "Ing. Software", "Administración", "Economía", "Relaciones internacionales", "Matemáticas", "Contabilidad", "Ing. Industrial"
     };
 
@@ -113,10 +113,10 @@ void opcion2(int matriz2021[7][2]) {
         total = 0;
         for (j = 0; j < 2; j++) {
             total += matriz2021[i][j];
-            if (total > mayor) {
-                mayor = total;
-                fila = i;
-            }
+        }
+        if (total > mayor) {
+            mayor = total;
+            fila = i;
         }
     }
 
@@ -132,14 +132,12 @@ void opcion3(int matriz2017[7][2], int matriz2018[7][2], int matriz2019[7][2], i
     int sumas[5] = {0};
     int anos[5] = {2017, 2018, 2019, 2020, 2021};
 
-    for (i = 0; i < 1; i++) {
-        for (j = 0; j < 1; j++) {
-            sumas[0] += matriz2017[i][j];
-            sumas[1] += matriz2018[i][j];
-            sumas[2] += matriz2019[i][j];
-            sumas[3] += matriz2020[i][j];
-            sumas[4] += matriz2021[i][j];
-        }
+    for (i = 0; i < 7; i++) {
+        sumas[0] += matriz2017[i][0];
+        sumas[1] += matriz2018[i][0];
+        sumas[2] += matriz2019[i][0];
+        sumas[3] += matriz2020[i][0];
+        sumas[4] += matriz2021[i][0];
     }
 
     for (i = 0; i < 5; i++) {
